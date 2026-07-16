@@ -1,10 +1,15 @@
 package com.learning.springSample.product;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import com.learning.springSample.product.dto.Product;
+import com.learning.springSample.product.service.CreateProductService;
+import com.learning.springSample.product.service.DeleteProductService;
+import com.learning.springSample.product.service.GetProductService;
+import com.learning.springSample.product.service.PutProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class Products {
@@ -22,7 +27,7 @@ public class Products {
     }
 
     @GetMapping
-    public ResponseEntity<String> getProducts() {
+    public ResponseEntity<List<Product>> getProducts() {
         return getProductService.execute(null);
     }
 
