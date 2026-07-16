@@ -2,7 +2,6 @@ package com.learning.springSample.product.service;
 
 
 import com.learning.springSample.product.Command;
-import com.learning.springSample.product.dto.Product;
 import com.learning.springSample.product.dto.ProductDto;
 import com.learning.springSample.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,16 +9,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class CreateProductService implements Command<Product, ProductDto> {
+public class GetProductsService implements Command<Void,List<ProductDto>> {
 
     @Autowired
     private ProductRepository productRepository;
 
     @Override
-    public ResponseEntity<ProductDto> execute(Product input) {
-        var savedProduct= productRepository.save(input);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ProductDto(savedProduct));
+    public ResponseEntity<List<ProductDto>> execute(Void input) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                productRepository.findAll()
+                        .stream().map(ProductDto::new).toList()
+        );
     }
 }
