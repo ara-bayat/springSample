@@ -5,6 +5,8 @@ import com.learning.springSample.product.dto.EditProductDto;
 import com.learning.springSample.product.dto.Product;
 import com.learning.springSample.product.dto.ProductDto;
 import com.learning.springSample.product.service.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponseException;
@@ -14,6 +16,8 @@ import java.util.List;
 
 @RestController
 public class Products {
+
+     private static final Logger logger= LoggerFactory.getLogger(Products.class);
 
     private final CreateProductService createProductService;
     private final DeleteProductService deleteProductService;
@@ -41,6 +45,7 @@ public class Products {
 
     @GetMapping("products")
     public ResponseEntity<List<ProductDto>> getProducts() {
+        logger.error("getProducts");
         return getProductsService.execute(null);
     }
     @GetMapping("product/{id}")

@@ -8,6 +8,7 @@ import com.learning.springSample.product.dto.Product;
 import com.learning.springSample.product.dto.ProductDto;
 import com.learning.springSample.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ public class PutProductService implements Command<EditProductDto, ProductDto> {
     private ProductRepository productRepository;
 
     @Override
+    @CacheEvict(value = "products",key = "#input.getId()")
     public ResponseEntity<ProductDto> execute(EditProductDto input) {
         return productRepository.findById(input.getId()).map(
                 item -> {
