@@ -2,6 +2,7 @@ package com.learning.springSample.product.service;
 
 
 import com.learning.springSample.product.Command;
+import com.learning.springSample.product.NotFoundException;
 import com.learning.springSample.product.dto.ProductDto;
 import com.learning.springSample.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class GetProductService implements Command<Integer,ProductDto> {
         var products = productRepository.findById(id);
         return products.map(product -> ResponseEntity.status(HttpStatus.OK).body(
                 new ProductDto(product)
-        )).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        )).orElseThrow(
+                NotFoundException::new
+        );
     }
 }

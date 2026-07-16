@@ -2,6 +2,7 @@ package com.learning.springSample.product.service;
 
 
 import com.learning.springSample.product.Command;
+import com.learning.springSample.product.NotFoundException;
 import com.learning.springSample.product.dto.EditProductDto;
 import com.learning.springSample.product.dto.Product;
 import com.learning.springSample.product.dto.ProductDto;
@@ -26,8 +27,8 @@ public class PutProductService implements Command<EditProductDto, ProductDto> {
                     return ResponseEntity.status(HttpStatus.OK).body(new ProductDto(input.getProduct()));
                 }
 
-        ).orElse(
-                 new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        ).orElseThrow(
+                NotFoundException::new
         );
     }
 }
