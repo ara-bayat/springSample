@@ -6,11 +6,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 public class ProductDto {
     private String name;
     private String description;
-    private Double price;
+    private BigDecimal price;
 
     public ProductDto(Product product) {
         this.name = product.getName();
